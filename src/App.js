@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import ImgList from './components/ImgList';
+import React from 'react';
+import { AiFillPlayCircle } from "react-icons/ai";
+
 
 function App() {
+
+  const startGame = () => {
+
+    console.log('GAME HAS STARTED!')
+    document.getElementById('b').style.display = 'none';
+    document.getElementById('img-list').style.display = 'flex';
+
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AiFillPlayCircle size={100} id="b" className="button" onClick={startGame} />
+      <div id="img-list">
+        <ImgList />
+        </div>
+    
+
     </div>
   );
 }
