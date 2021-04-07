@@ -4,21 +4,21 @@
   justify-content: center;
   height: 100%;
   width: 100%;
- 
 }
 
 * {
   box-sizing: border-box;
 }
-body{
+
+body {
   background: #d0e0e6;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 50px;
+  margin-top: -30px;
 }
-
 
 .button {
   color: #55c5c9;
@@ -35,14 +35,14 @@ body{
   align-items: center;
   justify-content: center;
 }
-#chooseLevel{
- 
+
+#chooseLevel {
   font-size: 20px;
-  font-weight:bold;
+  font-weight: bold;
   color: #e2725a;
 }
 
- .levelCard{
+.levelCard {
   cursor: pointer;
   display: flex;
   max-width: 100%;
@@ -66,3 +66,19 @@ body{
   transform: scale(1.02);
 }
 
+#gamename {
+  color: #e2725a;
+  font-weight: bold;
+  font-size: 100px;
+  font-family: 'Shadows Into Light';
+}
+
+#gamename:hover{
+  cursor: pointer;
+  transform: scale(1.10);
+}
+
+#timer:hover{
+  cursor: pointer;
+  transform: scale(1.10);
+}

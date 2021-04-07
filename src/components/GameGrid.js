@@ -4,9 +4,7 @@ import Block from './Block';
 import gameStyles from './styles/gameStyles';
 import "./styles/styles.css";
 
-
-
-export default function GameGrid({ imgArray, flipped, handleClick, matched, reset, defaultImage, win}) {
+export default function GameGrid({ imgArray, flipped, handleClick, matched, reset, defaultImage, win, lose}) {
     const classes = gameStyles();
     let highLevel = imgArray.length === 24;
 
@@ -23,7 +21,7 @@ export default function GameGrid({ imgArray, flipped, handleClick, matched, rese
 
                         return (
                         <Grid item key={img.id} xs={4} sm={4} md={highLevel? 3 : 3} lg={highLevel? 2 : 3}>
-                            <Block key={reset} imageObj={img} fatherHandleClick={handleClick} isFlipped={isFlipped} imgIndex={index} defaultImage={defaultImage} win={win} imgArray={imgArray}/>
+                            <Block key={reset} imageObj={img} fatherHandleClick={handleClick} isFlipped={isFlipped} imgIndex={index} defaultImage={defaultImage} win={win} imgArray={imgArray} lose={lose}/>
                         </Grid>
                         )
                     })}

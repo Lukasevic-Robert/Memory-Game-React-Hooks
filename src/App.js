@@ -12,17 +12,15 @@ function App() {
     console.log('GAME HAS STARTED!')
     document.getElementById('b').style.display = 'none';
     document.getElementById('img-list').style.display = 'flex';
-
   }
 
   return (
     <div className="App">
       <AiFillPlayCircle size={100} id="b" className="button" onClick={startGame} />
-      <div id="img-list">
+      <div id="img-list" className="flex-column">
+        <div id="gamename">TOTAL RECALL</div>
         <ImgList />
-        </div>
-    
-
+      </div>
     </div>
   );
 }
