@@ -6,10 +6,9 @@ import "./styles/styles.css";
 
 
 
-export default function GameGrid({ imgArray, flipped, handleClick, matched, reset, defaultImage}) {
+export default function GameGrid({ imgArray, flipped, handleClick, matched, reset, defaultImage, win}) {
     const classes = gameStyles();
     let highLevel = imgArray.length === 24;
-    let midLevel = imgArray.length === 16;
 
     return (
         <div id="gameGrid"  className= {highLevel ? "widthHigh" : "widthMid"}>
@@ -24,7 +23,7 @@ export default function GameGrid({ imgArray, flipped, handleClick, matched, rese
 
                         return (
                         <Grid item key={img.id} xs={4} sm={4} md={highLevel? 3 : 3} lg={highLevel? 2 : 3}>
-                            <Block key={reset} imageObj={img} fatherHandleClick={handleClick} isFlipped={isFlipped} imgIndex={index} defaultImage={defaultImage}/>
+                            <Block key={reset} imageObj={img} fatherHandleClick={handleClick} isFlipped={isFlipped} imgIndex={index} defaultImage={defaultImage} win={win} imgArray={imgArray}/>
                         </Grid>
                         )
                     })}

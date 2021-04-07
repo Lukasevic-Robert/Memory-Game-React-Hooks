@@ -26,6 +26,8 @@ export default function ImgList() {
     const [flippedCount, setFlippedCount] = useState(0);
     const [win, setWin] = useState(false);
     const [defaultImage, setDefaultImage] = useState(<GiBabyFace size={90} color="gold" />);
+    const [flipCount, setfFlipCount] = useState(0);
+   
 
 
     // KING of the PARTY !!!
@@ -41,6 +43,7 @@ export default function ImgList() {
             setFlippedCount(flippedCount-1);
             if(flippedCount === 1) {
                 setCanFlip(false);
+                setWin(true);
             }
             console.log(matched);
             console.log(array);
@@ -50,8 +53,6 @@ export default function ImgList() {
             setTimeout(() => setFlipped([]), 1000);
         }
     }, [flipped]);
-
-
 
     function setImgArray(imgA) {
         setArray(imgA);
@@ -70,6 +71,7 @@ export default function ImgList() {
         setMatched([]);
         setFlippedCount(lvl);
         getRandomImages(lvl);
+        setWin(false);
         setCanFlip(true);
         document.getElementById("gameGrid").style.display = "flex";
         document.getElementById("resetGame").style.display = "flex";
@@ -103,6 +105,7 @@ export default function ImgList() {
     // HANDLE click in Block Component
     const handleClick = (index) => {
 
+        setfFlipCount(flipCount+1);
         if (canFlip && flipped.length < 2) {
             setFlipped((opened) => [...opened, index]);
         }
@@ -120,7 +123,7 @@ export default function ImgList() {
 
     return (
         <div className="mainForTheGame">
-            <GameGrid imgArray={array} flipped={flipped} handleClick={handleClick} matched={matched} reset={reset} defaultImage={defaultImage} />
+            <GameGrid imgArray={array} flipped={flipped} handleClick={handleClick} matched={matched} reset={reset} defaultImage={defaultImage} win={win} flipCount={flipCount}/>
             <LevelCards handleLevelClick={handleLevelClick}/>
             <Menu handleLevelClick={handleLevelClick} resetGame={resetGame} imgCount={imgCount} reset={reset} canFlip={canFlip} setCanFlipper={setCanFlipper}/>
 
