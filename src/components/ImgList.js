@@ -6,10 +6,6 @@ import LevelCards from './LevelCards';
 import Menu from './Menu';
 import "./styles/styles.css";
 
-
-
-
-
 const imgArray = [{ image: <FcSimCard size={90} /> }, { image: <FcSalesPerformance size={90} /> },
 { image: <FcApproval size={90} /> }, { image: <FcSwitchCamera size={90} /> }, { image: <FcAlarmClock size={90} /> }, { image: <FcPhotoReel size={90} /> },
 { image: <FcAssistant size={90} /> }, { image: <FcCloseUpMode size={90} /> }, { image: <FcLike size={90} /> }, { image: <FcStart size={90} /> }, { image: <FcAndroidOs size={90} /> },
@@ -27,7 +23,8 @@ export default function ImgList() {
     const [win, setWin] = useState(false);
     const [defaultImage, setDefaultImage] = useState(<GiBabyFace size={90} color="gold" />);
     const [flipCount, setfFlipCount] = useState(0);
-   
+    const [lose, setLose] = useState(false);
+
 
 
     // KING of the PARTY !!!
@@ -37,11 +34,10 @@ export default function ImgList() {
         const firstMatched = array[flipped[0]];
         const secondMatched = array[flipped[1]];
 
-
         if (secondMatched && firstMatched.image === secondMatched.image) {
             setMatched([...matched, firstMatched.image]);
-            setFlippedCount(flippedCount-1);
-            if(flippedCount === 1) {
+            setFlippedCount(flippedCount - 1);
+            if (flippedCount === 1) {
                 setCanFlip(false);
                 setWin(true);
             }
@@ -71,6 +67,8 @@ export default function ImgList() {
         setMatched([]);
         setFlippedCount(lvl);
         getRandomImages(lvl);
+        setfFlipCount(0);
+        setLose(false);
         setWin(false);
         setCanFlip(true);
         document.getElementById("gameGrid").style.display = "flex";
@@ -89,7 +87,7 @@ export default function ImgList() {
                 i++;
             }
         }
-        let newArray = randomArray.map((obj, index) => ({ ...obj, id: index + 1}))
+        let newArray = randomArray.map((obj, index) => ({ ...obj, id: index + 1 }))
         return setImgArray(shuffle(newArray));
     }
 
@@ -105,27 +103,39 @@ export default function ImgList() {
     // HANDLE click in Block Component
     const handleClick = (index) => {
 
-        setfFlipCount(flipCount+1);
         if (canFlip && flipped.length < 2) {
+            setfFlipCount(flipCount + 1);
             setFlipped((opened) => [...opened, index]);
         }
     }
 
     // HANDLE Game Level click - Low Mid High
     const handleLevelClick = (lvl) => {
+        handleSizes(lvl);
+        document.getElementById('gamename').style.fontSize = '80px';
         setImgCount(lvl);
         resetGame(lvl);
     }
 
+    const handleSizes = (lvl) => {
+        if (lvl === 4) { let a = document.getElementById('helmet');a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('skull');b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (lvl === 8) { let a = document.getElementById('babyface');a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('skull');b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (lvl === 12) { let a = document.getElementById('babyface');a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('helmet');b.style.width = '60px'; b.style.color = '#e2725a' };
+
+        document.getElementById(lvl === 4 ? 'babyface' : lvl === 8 ? 'helmet' : 'skull').style.width = '150px';
+        document.getElementById(lvl === 4 ? 'babyface' : lvl === 8 ? 'helmet' : 'skull').style.color = '#4a6274';
+    }
+
     const setCanFlipper = (v) => {
+        setLose(true);
         setCanFlip(v);
     }
 
     return (
         <div className="mainForTheGame">
-            <GameGrid imgArray={array} flipped={flipped} handleClick={handleClick} matched={matched} reset={reset} defaultImage={defaultImage} win={win} flipCount={flipCount}/>
-            <LevelCards handleLevelClick={handleLevelClick}/>
-            <Menu handleLevelClick={handleLevelClick} resetGame={resetGame} imgCount={imgCount} reset={reset} canFlip={canFlip} setCanFlipper={setCanFlipper}/>
+            <GameGrid imgArray={array} flipped={flipped} handleClick={handleClick} matched={matched} reset={reset} defaultImage={defaultImage} win={win} lose={lose} />
+            <LevelCards handleLevelClick={handleLevelClick} />
+            <Menu handleLevelClick={handleLevelClick} resetGame={resetGame} imgCount={imgCount} reset={reset} canFlip={canFlip} setCanFlipper={setCanFlipper} flipCount={flipCount} />
 
         </div>
     )

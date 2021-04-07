@@ -98,18 +98,19 @@ text-align: center;
     width: 100%;
 }
 
-#hoverEff:hover{
+.hoverEff:hover{
     cursor: pointer;
     transform: scale(1.09);
-
 }
 .level-class{
     width: 200px;
 }
-.counter{
+.counter, #flipcounter, #levelSpan{
     color: #e2725a;
     font-weight: bold;
     font-size:50px;
     font-family: 'Shadows Into Light';
 }
+
+
 
