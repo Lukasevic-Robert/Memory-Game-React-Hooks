@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <AiFillPlayCircle size={100} id="b" className="button" onClick={startGame} />
       <div id="img-list" className="flex-column">
-        <div id="gamename">TOTAL RECALL</div>
+        <div id="gamename">TOTAL RECALL<span id="copyright">&copy;</span></div>
         <ImgList />
       </div>
     </div>

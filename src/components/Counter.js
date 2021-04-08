@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from 'react'
 
-export default function Counter({ reset, canFlip, setCanFlipper }) {
+export default function Counter({ reset, canFlip, setCanFlipper, counterValue }) {
 
-    const [counter, setCounter] = useState(20);
+    const [counter, setCounter] = useState();
     let timer;
 
     useEffect(() => {
@@ -18,9 +18,11 @@ export default function Counter({ reset, canFlip, setCanFlipper }) {
         return () => clearInterval(timer);
     }, [counter]);
 
+
+
     useEffect(() => {
-        setCounter(20);
-    }, [reset]);
+        setCounter(counterValue);
+    }, [reset,counterValue]);
 
     return (
         <div className="App d-flex justify-content-center align-items-end">

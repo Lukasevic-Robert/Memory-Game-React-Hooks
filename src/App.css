@@ -73,12 +73,23 @@ body {
   font-family: 'Shadows Into Light';
 }
 
+@media (min-width: 1000px) { 
+  #gamename {
+    font-size: 150px;
+  }
+ }
+
 #gamename:hover{
   cursor: pointer;
   transform: scale(1.10);
 }
 
-#timer:hover{
+.timer:hover{
   cursor: pointer;
   transform: scale(1.10);
+}
+#copyright{
+  font-size: 40px;
+  vertical-align: top;
+  font-family:'Courier New', Courier, monospace
 }
