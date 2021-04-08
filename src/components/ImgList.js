@@ -22,8 +22,12 @@ export default function ImgList() {
     const [flippedCount, setFlippedCount] = useState(0);
     const [win, setWin] = useState(false);
     const [defaultImage, setDefaultImage] = useState(<GiBabyFace size={90} color="gold" />);
-    const [flipCount, setfFlipCount] = useState(0);
+    const [flipCount, setFlipCount] = useState(0);
     const [lose, setLose] = useState(false);
+    const [level, setLevel] = useState(1);
+    const [counterValue, setCounterValue] = useState(20);
+    const [timer, setTimer] = useState();
+
 
 
 
@@ -46,7 +50,7 @@ export default function ImgList() {
         }
 
         if (flipped.length === 2) {
-            setTimeout(() => setFlipped([]), 1000);
+            setTimeout(() => setFlipped([]), 700);
         }
     }, [flipped]);
 
@@ -67,7 +71,7 @@ export default function ImgList() {
         setMatched([]);
         setFlippedCount(lvl);
         getRandomImages(lvl);
-        setfFlipCount(0);
+        setFlipCount(0);
         setLose(false);
         setWin(false);
         setCanFlip(true);
@@ -104,38 +108,66 @@ export default function ImgList() {
     const handleClick = (index) => {
 
         if (canFlip && flipped.length < 2) {
-            setfFlipCount(flipCount + 1);
+            setFlipCount(flipCount + 1);
             setFlipped((opened) => [...opened, index]);
         }
     }
 
     // HANDLE Game Level click - Low Mid High
     const handleLevelClick = (lvl) => {
+        setLevel(lvl);
+        handleTimers(lvl, 2);
         handleSizes(lvl);
         document.getElementById('gamename').style.fontSize = '80px';
         setImgCount(lvl);
         resetGame(lvl);
     }
 
+    // HANDLE lvl icons size and font
     const handleSizes = (lvl) => {
-        if (lvl === 4) { let a = document.getElementById('helmet');a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('skull');b.style.width = '60px'; b.style.color = '#e2725a' };
-        if (lvl === 8) { let a = document.getElementById('babyface');a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('skull');b.style.width = '60px'; b.style.color = '#e2725a' };
-        if (lvl === 12) { let a = document.getElementById('babyface');a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('helmet');b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (lvl === 4) { let a = document.getElementById('helmet'); a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('skull'); b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (lvl === 8) { let a = document.getElementById('babyface'); a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('skull'); b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (lvl === 12) { let a = document.getElementById('babyface'); a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('helmet'); b.style.width = '60px'; b.style.color = '#e2725a' };
 
-        document.getElementById(lvl === 4 ? 'babyface' : lvl === 8 ? 'helmet' : 'skull').style.width = '150px';
-        document.getElementById(lvl === 4 ? 'babyface' : lvl === 8 ? 'helmet' : 'skull').style.color = '#4a6274';
+        let a = document.getElementById(lvl === 4 ? 'babyface' : lvl === 8 ? 'helmet' : 'skull');
+        a.style.width = '100px';
+        a.style.color = '#4a6274';
+    }
+
+    const handleTimers = (lvl, timerSpeed) => {
+
+        setTimer(timerSpeed);
+
+        if (timerSpeed === 1) { let a = document.getElementById('slow'); a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('notime'); b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (timerSpeed === 2) { let a = document.getElementById('fast'); a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('notime'); b.style.width = '60px'; b.style.color = '#e2725a' };
+        if (timerSpeed === 3) { let a = document.getElementById('fast'); a.style.width = '60px'; a.style.color = '#e2725a'; let b = document.getElementById('slow'); b.style.width = '60px'; b.style.color = '#e2725a' };
+        let a = document.getElementById(timerSpeed === 1 ? 'fast' : timerSpeed === 2 ? 'slow' : 'notime');
+        a.style.color = '#4a6274';
+
+        level === 4 && timerSpeed === 1 ? setCounterValue(10) : (level === 4 && timerSpeed === 2) ? setCounterValue(20) : (level === 4 && timerSpeed === 3) ? setCounterValue(0) : console.log('Not Found');
+        level === 8 && timerSpeed === 1 ? setCounterValue(30) : (level === 8 && timerSpeed === 2) ? setCounterValue(60) : (level === 8 && timerSpeed === 3) ? setCounterValue(0) : console.log('Not Found');
+        level === 12 && timerSpeed === 1 ? setCounterValue(60) : (level === 12 && timerSpeed === 2) ? setCounterValue(120) : (level === 12 && timerSpeed === 3) ? setCounterValue(0) : console.log('Not Found');
+        handleSizes(level);
+        setImgCount(level);
+        resetGame(level);
+
+        lvl === 4 && timerSpeed === 1 ? setCounterValue(10) : (lvl === 4 && timerSpeed === 2) ? setCounterValue(20) : (lvl === 4 && timerSpeed === 3) ? setCounterValue(0) : console.log('Not Found');
+        lvl === 8 && timerSpeed === 1 ? setCounterValue(30) : (lvl === 8 && timerSpeed === 2) ? setCounterValue(60) : (lvl === 8 && timerSpeed === 3) ? setCounterValue(0) : console.log('Not Found');
+        lvl === 12 && timerSpeed === 1 ? setCounterValue(60) : (lvl === 12 && timerSpeed === 2) ? setCounterValue(120) : (lvl === 12 && timerSpeed === 3) ? setCounterValue(0) : console.log('Not Found');
     }
 
     const setCanFlipper = (v) => {
-        setLose(true);
-        setCanFlip(v);
+        if (timer !== 3) {
+            setLose(true)
+            setCanFlip(v);
+        }
     }
 
     return (
         <div className="mainForTheGame">
             <GameGrid imgArray={array} flipped={flipped} handleClick={handleClick} matched={matched} reset={reset} defaultImage={defaultImage} win={win} lose={lose} />
             <LevelCards handleLevelClick={handleLevelClick} />
-            <Menu handleLevelClick={handleLevelClick} resetGame={resetGame} imgCount={imgCount} reset={reset} canFlip={canFlip} setCanFlipper={setCanFlipper} flipCount={flipCount} />
+            <Menu handleLevelClick={handleLevelClick} resetGame={resetGame} imgCount={imgCount} reset={reset} canFlip={canFlip} setCanFlipper={setCanFlipper} flipCount={flipCount} handleTimers={handleTimers} counterValue={counterValue} level={level} timer={timer}/>
 
         </div>
     )
